@@ -2,6 +2,7 @@
 #define HW1P1_H
 
 #include <iterator>
+#include <omp.h>
 
 template <typename Iter> auto sum_iter(Iter begin, Iter end) -> decltype(auto) {
     typename std::iterator_traits<Iter>::value_type res{};
@@ -18,14 +19,35 @@ auto sum_iter_par(Iter begin, Iter end, int32_t thread_count)
     -> decltype(auto) {
     typename std::iterator_traits<Iter>::value_type res{};
 
-    // clang-format off
+// clang-format off
     #pragma omp parallel for num_threads(thread_count)
     // clang-format on
     for (auto it = begin; it != end; ++it) {
-        // clang-format off
+// clang-format off
         #pragma omp critical
         // clang-format on
         res = res + *it;
+    }
+
+    return res;
+}
+
+template <typename Iter>
+auto sum_iter_par_lock(Iter begin, Iter end, int32_t thread_count)
+    -> decltype(auto) {
+    typename std::iterator_traits<Iter>::value_type res{};
+
+    omp_lock_t writelock;
+
+    omp_init_lock(&writelock);
+
+// clang-format off
+    #pragma omp parallel for num_threads(thread_count)
+    // clang-format on
+    for (auto it = begin; it != end; ++it) {
+        omp_set_lock(&writelock);
+        res = res + *it;
+        omp_unset_lock(&writelock);
     }
 
     return res;
@@ -36,7 +58,7 @@ auto sum_iter_par_red(Iter begin, Iter end, int32_t thread_count)
     -> decltype(auto) {
     typename std::iterator_traits<Iter>::value_type res{};
 
-    // clang-format off
+// clang-format off
     #pragma omp parallel for num_threads(thread_count) reduction(+ : res)
     // clang-format on
     for (auto it = begin; it != end; ++it) {
