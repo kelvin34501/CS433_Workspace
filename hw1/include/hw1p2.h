@@ -25,9 +25,10 @@ template <typename TypeNumber, int32_t row, int32_t col> struct mat {
 
     // copy con & move con from std::array
     // check cppreference
-    mat(const std::array<TypeNumber, row * col>& other_data)
+    explicit mat(const std::array<TypeNumber, row * col>& other_data)
         : data(other_data) {}
-    mat(std::array<TypeNumber, row * col>&& other_data) : data(other_data) {}
+    explicit mat(std::array<TypeNumber, row * col>&& other_data)
+        : data(other_data) {}
 };
 
 template <typename TypeNumber, int32_t row, int32_t col> struct mat_alt {
@@ -47,13 +48,13 @@ template <typename TypeNumber, int32_t row, int32_t col> struct mat_alt {
 
     // copy con & move con from std::array
     // check cppreference
-    mat_alt(const std::array<TypeNumber, col * row>& other_data)
+    explicit mat_alt(const std::array<TypeNumber, col * row>& other_data)
         : data(other_data) {}
-    mat_alt(std::array<TypeNumber, col * row>&& other_data)
+    explicit mat_alt(std::array<TypeNumber, col * row>&& other_data)
         : data(other_data) {}
 
     // copy con from mat (row major version)
-    mat_alt(const mat<TypeNumber, row, col>& row_major)
+    explicit mat_alt(const mat<TypeNumber, row, col>& row_major)
         : n_row(row_major.n_row), n_col(row_major.n_col) {
         for (int32_t i = 0; i < row_major.n_row; ++i) {
             for (int32_t j = 0; j < row_major.n_col; ++j) {
@@ -91,7 +92,7 @@ auto matmul(const mat<TypeNumber, row_a, col_a>& A,
         }
     }
 
-    // should have moved? need to check cpprefernce
+    // should have moved? need to check cppreference
     return p_res;
 }
 
@@ -115,7 +116,7 @@ auto matmul(const mat<TypeNumber, row_a, col_a>& A,
         }
     }
 
-    // should have moved? need to check cpprefernce
+    // should have moved? need to check cppreference
     return p_res;
 }
 
@@ -128,9 +129,9 @@ auto matmul_par(const mat<TypeNumber, row_a, col_a>& A,
     auto res_n_row = raw_p_res->n_row;
     auto res_n_col = raw_p_res->n_col;
 
-// iterate over row and col
-// clang-format off
-    #pragma omp parallel for num_threads(thread_count)
+    // iterate over row and col
+    // clang-format off
+    #pragma omp parallel for num_threads(thread_count) shared(A, B, raw_p_res, res_n_row, res_n_col) default(none)
     // clang-format on
     for (int32_t i = 0; i < res_n_row; ++i) {
         for (int32_t j = 0; j < res_n_col; ++j) {
@@ -143,7 +144,7 @@ auto matmul_par(const mat<TypeNumber, row_a, col_a>& A,
         }
     }
 
-    // should have moved? need to check cpprefernce
+    // should have moved? need to check cppreference
     auto p_res = std::unique_ptr<mat<TypeNumber, row_a, col_b>>(raw_p_res);
     raw_p_res = nullptr; // manually transfer ownership
     return p_res;
@@ -159,9 +160,9 @@ auto matmul_par(const mat<TypeNumber, row_a, col_a>& A,
     auto res_n_row = raw_p_res->n_row;
     auto res_n_col = raw_p_res->n_col;
 
-// iterate over row and col
-// clang-format off
-    #pragma omp parallel for num_threads(thread_count)
+    // iterate over row and col
+    // clang-format off
+    #pragma omp parallel for num_threads(thread_count) shared(A, B, raw_p_res, res_n_row, res_n_col) default(none)
     // clang-format on
     for (int32_t i = 0; i < res_n_row; ++i) {
         for (int32_t j = 0; j < res_n_col; ++j) {
@@ -174,7 +175,7 @@ auto matmul_par(const mat<TypeNumber, row_a, col_a>& A,
         }
     }
 
-    // should have moved? need to check cpprefernce
+    // should have moved? need to check cppreference
     auto p_res = std::unique_ptr<mat<TypeNumber, row_a, col_b>>(raw_p_res);
     raw_p_res = nullptr; // manually transfer ownership
     return p_res;
