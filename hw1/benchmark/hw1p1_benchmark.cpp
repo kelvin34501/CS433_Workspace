@@ -5,6 +5,11 @@
 
 #include "hw1p1.h"
 
+// this should do similar job to benchmark::DoNotOptimize
+// but looks less magic
+// first define a volatile var
+// then assign return value to the volatile var
+// finally use this function to suppress compiler warning
 template <typename T> auto KEEP_UNUSED(const T&) -> void {}
 
 static auto benchmark_generic_sum(benchmark::State& state) -> void {
@@ -95,6 +100,29 @@ static auto benchmark_generic_sum_omp_red(benchmark::State& state) -> void {
     KEEP_UNUSED(keep_unused);
 }
 
+static auto benchmark_generic_sum_omp_red_neq(benchmark::State& state) -> void {
+    // setup things
+    std::random_device rnd_dev;
+    std::mt19937 mersenne_engine{rnd_dev()};
+    std::uniform_int_distribution<int32_t> dist{0, 1};
+    auto gen = [&dist, &mersenne_engine] { return dist(mersenne_engine); };
+    std::vector<int32_t> vec(10000000);
+    std::generate(begin(vec), end(vec), gen);
+    auto display = 0;
+
+    auto thread_count = state.range(0);
+
+    // start testing
+    for (auto _ : state) {
+        display =
+            sum_iter_par_red_neq(std::begin(vec), std::end(vec), thread_count);
+    }
+
+    volatile auto keep_unused = 0;
+    keep_unused = display;
+    KEEP_UNUSED(keep_unused);
+}
+
 // register function as benchmark
 BENCHMARK(benchmark_generic_sum);
 BENCHMARK(benchmark_generic_sum_omp)
@@ -118,6 +146,16 @@ BENCHMARK(benchmark_generic_sum_omp_lock)
     ->Arg(8);
 BENCHMARK(benchmark_generic_sum);
 BENCHMARK(benchmark_generic_sum_omp_red)
+    ->Arg(1)
+    ->Arg(2)
+    ->Arg(3)
+    ->Arg(4)
+    ->Arg(5)
+    ->Arg(6)
+    ->Arg(7)
+    ->Arg(8);
+BENCHMARK(benchmark_generic_sum);
+BENCHMARK(benchmark_generic_sum_omp_red_neq)
     ->Arg(1)
     ->Arg(2)
     ->Arg(3)

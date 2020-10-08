@@ -71,4 +71,19 @@ auto sum_iter_par_red(Iter begin, Iter end, int32_t thread_count)
     return res;
 }
 
+template <typename Iter>
+auto sum_iter_par_red_neq(Iter begin, Iter end, int32_t thread_count)
+    -> decltype(auto) {
+    typename std::iterator_traits<Iter>::value_type res{};
+
+    // clang-format off
+    #pragma omp parallel for num_threads(thread_count) reduction(+ : res) shared(begin, end) default(none)
+    // clang-format on
+    for (auto it = begin; it != end; ++it) {
+        res = res + *it;
+    }
+
+    return res;
+}
+
 #endif

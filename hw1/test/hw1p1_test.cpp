@@ -59,6 +59,20 @@ TEST(HW1P1, PAR_RED) {
     EXPECT_EQ(sum_iter_par_red(std::begin(vec), std::end(vec), 4), 15150);
 }
 
+TEST(HW1P1, PAR_RED_NEQ) {
+    std::vector<int32_t> vec{};
+    for (int32_t i = 1; i <= 100; ++i) {
+        vec.push_back(i);
+    }
+    EXPECT_EQ(sum_iter_par_red_neq(std::begin(vec), std::end(vec), 4), 5050);
+
+    vec.clear();
+    for (int32_t i = 200; i >= 100; --i) {
+        vec.push_back(i);
+    }
+    EXPECT_EQ(sum_iter_par_red_neq(std::begin(vec), std::end(vec), 4), 15150);
+}
+
 int main(int argc, char** argv) {
     ::testing::InitGoogleTest(&argc, argv);
     int ret = RUN_ALL_TESTS();
