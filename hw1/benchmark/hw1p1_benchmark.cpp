@@ -5,6 +5,8 @@
 
 #include "hw1p1.h"
 
+template <typename T> auto KEEP_UNUSED(const T&) -> void {}
+
 static auto benchmark_generic_sum(benchmark::State& state) -> void {
     // setup things
     std::random_device rnd_dev;
@@ -22,6 +24,7 @@ static auto benchmark_generic_sum(benchmark::State& state) -> void {
 
     volatile auto keep_unused = 0;
     keep_unused = display;
+    KEEP_UNUSED(keep_unused);
 }
 
 static auto benchmark_generic_sum_omp(benchmark::State& state) -> void {
@@ -43,6 +46,7 @@ static auto benchmark_generic_sum_omp(benchmark::State& state) -> void {
 
     volatile auto keep_unused = 0;
     keep_unused = display;
+    KEEP_UNUSED(keep_unused);
 }
 
 static auto benchmark_generic_sum_omp_lock(benchmark::State& state) -> void {
@@ -65,6 +69,7 @@ static auto benchmark_generic_sum_omp_lock(benchmark::State& state) -> void {
 
     volatile auto keep_unused = 0;
     keep_unused = display;
+    KEEP_UNUSED(keep_unused);
 }
 
 static auto benchmark_generic_sum_omp_red(benchmark::State& state) -> void {
@@ -87,6 +92,7 @@ static auto benchmark_generic_sum_omp_red(benchmark::State& state) -> void {
 
     volatile auto keep_unused = 0;
     keep_unused = display;
+    KEEP_UNUSED(keep_unused);
 }
 
 // register function as benchmark
