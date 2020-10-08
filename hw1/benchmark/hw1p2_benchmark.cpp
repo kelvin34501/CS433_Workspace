@@ -17,7 +17,7 @@ static auto benchmark_matmul(benchmark::State& state) -> void {
     auto p_arr_A = std::make_unique<std::array<float, 120000>>();
     std::generate(std::begin(*p_arr_A), std::end(*p_arr_A), gen);
     auto p_arr_B = std::make_unique<std::array<float, 200000>>();
-    std::generate(std::begin(*p_arr_B), end(*p_arr_B), gen);
+    std::generate(std::begin(*p_arr_B), std::end(*p_arr_B), gen);
     auto A = std::make_unique<mat<float, 300, 400>>(std::move(*p_arr_A));
     auto B = std::make_unique<mat<float, 400, 500>>(std::move(*p_arr_B));
     auto p_display = std::make_unique<mat<float, 300, 500>>();
@@ -37,7 +37,7 @@ static auto benchmark_matmul_alt(benchmark::State& state) -> void {
     auto p_arr_A = std::make_unique<std::array<float, 120000>>();
     std::generate(std::begin(*p_arr_A), std::end(*p_arr_A), gen);
     auto p_arr_B = std::make_unique<std::array<float, 200000>>();
-    std::generate(std::begin(*p_arr_B), end(*p_arr_B), gen);
+    std::generate(std::begin(*p_arr_B), std::end(*p_arr_B), gen);
     auto A = std::make_unique<mat<float, 300, 400>>(std::move(*p_arr_A));
     auto B = std::make_unique<mat<float, 400, 500>>(std::move(*p_arr_B));
     auto B_alt = std::make_unique<mat_alt<float, 400, 500>>(*B);
@@ -58,7 +58,7 @@ static auto benchmark_matmul_par(benchmark::State& state) -> void {
     auto p_arr_A = std::make_unique<std::array<float, 120000>>();
     std::generate(std::begin(*p_arr_A), std::end(*p_arr_A), gen);
     auto p_arr_B = std::make_unique<std::array<float, 200000>>();
-    std::generate(std::begin(*p_arr_B), end(*p_arr_B), gen);
+    std::generate(std::begin(*p_arr_B), std::end(*p_arr_B), gen);
     auto A = std::make_unique<mat<float, 300, 400>>(std::move(*p_arr_A));
     auto B = std::make_unique<mat<float, 400, 500>>(std::move(*p_arr_B));
     auto p_display = std::make_unique<mat<float, 300, 500>>();
@@ -80,7 +80,7 @@ static auto benchmark_matmul_par_alt(benchmark::State& state) -> void {
     auto p_arr_A = std::make_unique<std::array<float, 120000>>();
     std::generate(std::begin(*p_arr_A), std::end(*p_arr_A), gen);
     auto p_arr_B = std::make_unique<std::array<float, 200000>>();
-    std::generate(std::begin(*p_arr_B), end(*p_arr_B), gen);
+    std::generate(std::begin(*p_arr_B), std::end(*p_arr_B), gen);
     auto A = std::make_unique<mat<float, 300, 400>>(std::move(*p_arr_A));
     auto B = std::make_unique<mat<float, 400, 500>>(std::move(*p_arr_B));
     auto B_alt = std::make_unique<mat_alt<float, 400, 500>>(*B);
