@@ -1,5 +1,27 @@
 # HW1
 
+## build instruction
+
+Default build type is ```RelWithDebInfo```.
+To build:
+```bash
+mkdir build && cd build
+cmake -G Ninja ..
+ninja
+```
+
+To see the results of unit tests: (make sure you are in ```build``` directory)
+```bash
+./hw1p1_test
+./hw1p2_test
+```
+
+To see the results of benchmarks: (make sure you are in ```build``` directory)
+```bash
+./hw1p1_benchmark
+./hw1p2_benchmark
+```
+
 ## Test results
 
 + hw1p1_test
