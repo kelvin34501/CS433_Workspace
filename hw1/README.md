@@ -5,9 +5,9 @@
 + hw1p1_test
 
 ```
-[==========] Running 4 tests from 1 test suite.
+[==========] Running 5 tests from 1 test suite.
 [----------] Global test environment set-up.
-[----------] 4 tests from HW1P1
+[----------] 5 tests from HW1P1
 [ RUN      ] HW1P1.SERIAL
 [       OK ] HW1P1.SERIAL (0 ms)
 [ RUN      ] HW1P1.PAR
@@ -16,11 +16,13 @@
 [       OK ] HW1P1.PAR_LOCK (0 ms)
 [ RUN      ] HW1P1.PAR_RED
 [       OK ] HW1P1.PAR_RED (0 ms)
-[----------] 4 tests from HW1P1 (0 ms total)
+[ RUN      ] HW1P1.PAR_RED_NEQ
+[       OK ] HW1P1.PAR_RED_NEQ (0 ms)
+[----------] 5 tests from HW1P1 (0 ms total)
 
 [----------] Global test environment tear-down
-[==========] 4 tests from 1 test suite ran. (0 ms total)
-[  PASSED  ] 4 tests.
+[==========] 5 tests from 1 test suite ran. (0 ms total)
+[  PASSED  ] 5 tests.
 ```
 + hw1p2_test
 
@@ -48,7 +50,7 @@
 + hw1p1_benchmark
 
 ```
-2020-10-08T22:56:07+08:00
+2020-10-09T00:34:14+08:00
 Running ./hw1p1_benchmark
 Run on (8 X 3900 MHz CPU s)
 CPU Caches:
@@ -56,37 +58,46 @@ CPU Caches:
   L1 Instruction 32 KiB (x4)
   L2 Unified 256 KiB (x4)
   L3 Unified 6144 KiB (x1)
-Load Average: 1.60, 1.62, 1.81
----------------------------------------------------------------------------
-Benchmark                                 Time             CPU   Iterations
----------------------------------------------------------------------------
-benchmark_generic_sum               6673255 ns      6671956 ns          120
-benchmark_generic_sum_omp/1       135448227 ns    135400281 ns            5
-benchmark_generic_sum_omp/2       250182136 ns    250154979 ns            3
-benchmark_generic_sum_omp/3       379374515 ns    363215715 ns            2
-benchmark_generic_sum_omp/4       540970096 ns    505865858 ns            1
-benchmark_generic_sum_omp/5       580141131 ns    580071832 ns            1
-benchmark_generic_sum_omp/6       690479179 ns    676277554 ns            1
-benchmark_generic_sum_omp/7       710543007 ns    707805389 ns            1
-benchmark_generic_sum_omp/8       757728235 ns    620699082 ns            1
-benchmark_generic_sum               6433511 ns      6432838 ns           85
-benchmark_generic_sum_omp_lock/1  137609074 ns    137591901 ns            5
-benchmark_generic_sum_omp_lock/2  290901075 ns    289255520 ns            3
-benchmark_generic_sum_omp_lock/3  406722405 ns    375589024 ns            2
-benchmark_generic_sum_omp_lock/4  585884280 ns    585884278 ns            1
-benchmark_generic_sum_omp_lock/5  650339337 ns    649791054 ns            1
-benchmark_generic_sum_omp_lock/6  767792785 ns    767786527 ns            1
-benchmark_generic_sum_omp_lock/7  867933388 ns    839722038 ns            1
-benchmark_generic_sum_omp_lock/8  928890898 ns    928772276 ns            1
-benchmark_generic_sum               6208493 ns      6206852 ns          121
-benchmark_generic_sum_omp_red/1     9181121 ns      9179414 ns           83
-benchmark_generic_sum_omp_red/2     4941681 ns      4940430 ns          147
-benchmark_generic_sum_omp_red/3     3388182 ns      3387237 ns          205
-benchmark_generic_sum_omp_red/4     2558615 ns      2557938 ns          244
-benchmark_generic_sum_omp_red/5     2667542 ns      2666676 ns          288
-benchmark_generic_sum_omp_red/6     2328488 ns      2325557 ns          334
-benchmark_generic_sum_omp_red/7     2275485 ns      2234399 ns          377
-benchmark_generic_sum_omp_red/8     2008220 ns      1932709 ns          381
+Load Average: 2.65, 4.64, 5.17
+------------------------------------------------------------------------------
+Benchmark                                    Time             CPU   Iterations
+------------------------------------------------------------------------------
+benchmark_generic_sum                  6671777 ns      6671748 ns          100
+benchmark_generic_sum_omp/1          138911231 ns    137220107 ns            5
+benchmark_generic_sum_omp/2          281775944 ns    277226358 ns            3
+benchmark_generic_sum_omp/3          394479586 ns    349686196 ns            2
+benchmark_generic_sum_omp/4          550630514 ns    494701924 ns            2
+benchmark_generic_sum_omp/5          625707154 ns    624710725 ns            1
+benchmark_generic_sum_omp/6          737489036 ns    737444030 ns            1
+benchmark_generic_sum_omp/7          714175991 ns    672292390 ns            1
+benchmark_generic_sum_omp/8          806230698 ns    762239600 ns            1
+benchmark_generic_sum                  6497550 ns      6497527 ns          115
+benchmark_generic_sum_omp_lock/1     142813372 ns    142699370 ns            5
+benchmark_generic_sum_omp_lock/2     446440080 ns    446414660 ns            2
+benchmark_generic_sum_omp_lock/3     677415263 ns    574478017 ns            1
+benchmark_generic_sum_omp_lock/4     988452864 ns    895368888 ns            1
+benchmark_generic_sum_omp_lock/5    1110937111 ns   1081705195 ns            1
+benchmark_generic_sum_omp_lock/6    1197095101 ns   1191632717 ns            1
+benchmark_generic_sum_omp_lock/7    1355005623 ns   1229417474 ns            1
+benchmark_generic_sum_omp_lock/8    1477722004 ns   1346610774 ns            1
+benchmark_generic_sum                 10895860 ns     10889315 ns           48
+benchmark_generic_sum_omp_red/1        9219981 ns      9209312 ns          100
+benchmark_generic_sum_omp_red/2        2894151 ns      2893890 ns          253
+benchmark_generic_sum_omp_red/3        1948286 ns      1948275 ns          409
+benchmark_generic_sum_omp_red/4        1825490 ns      1825491 ns          418
+benchmark_generic_sum_omp_red/5        1829143 ns      1828741 ns          452
+benchmark_generic_sum_omp_red/6        1738110 ns      1738092 ns          414
+benchmark_generic_sum_omp_red/7        1906961 ns      1749298 ns          390
+benchmark_generic_sum_omp_red/8        1822909 ns      1760146 ns          311
+benchmark_generic_sum                  7284591 ns      7284345 ns          100
+benchmark_generic_sum_omp_red_neq/1   10259419 ns     10258838 ns           78
+benchmark_generic_sum_omp_red_neq/2    5306878 ns      5306262 ns          100
+benchmark_generic_sum_omp_red_neq/3    3425248 ns      3425188 ns          206
+benchmark_generic_sum_omp_red_neq/4    2624202 ns      2624109 ns          290
+benchmark_generic_sum_omp_red_neq/5    2676498 ns      2676476 ns          281
+benchmark_generic_sum_omp_red_neq/6    2383722 ns      2331041 ns          327
+benchmark_generic_sum_omp_red_neq/7    2122274 ns      2057006 ns          365
+benchmark_generic_sum_omp_red_neq/8    1978956 ns      1960295 ns          397
 ```
 
 + hw1p2_benchmark
