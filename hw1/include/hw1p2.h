@@ -8,6 +8,10 @@
 
 namespace HW1P2 {
 
+/*
+ * this class is row-major matrix
+ * using template to check dimension information in compile time
+ */
 template <typename TypeNumber, int32_t row, int32_t col> struct mat {
     std::array<TypeNumber, row * col> data{}; // should be row major
     int32_t n_row{row};
@@ -31,6 +35,10 @@ template <typename TypeNumber, int32_t row, int32_t col> struct mat {
         : data(other_data) {}
 };
 
+/*
+ * this class is column-major matrix
+ * using template to check dimension information in compile time
+ */
 template <typename TypeNumber, int32_t row, int32_t col> struct mat_alt {
     std::array<TypeNumber, col * row> data{}; // should be row major
     int32_t n_row{row};
@@ -72,6 +80,9 @@ auto operator==(const mat<TypeNumber, row, col>& lv,
     return lv.data == rv.data;
 }
 
+/*
+ * this function is matrix multiplication between row-major matrices
+ */
 template <typename TypeNumber, int32_t row_a, int32_t col_a, int32_t col_b>
 auto matmul(const mat<TypeNumber, row_a, col_a>& A,
             const mat<TypeNumber, col_a, col_b>& B)
@@ -96,6 +107,12 @@ auto matmul(const mat<TypeNumber, row_a, col_a>& A,
     return p_res;
 }
 
+/*
+ * this function is matrix multiplication between one row-major matrix and
+ * one column-major matrix
+ * the latter using data locality during matrix multiplication
+ * and should be more cache-friendly and faster theoretically
+ */
 template <typename TypeNumber, int32_t row_a, int32_t col_a, int32_t col_b>
 auto matmul(const mat<TypeNumber, row_a, col_a>& A,
             const mat_alt<TypeNumber, col_a, col_b>& B)
@@ -119,7 +136,10 @@ auto matmul(const mat<TypeNumber, row_a, col_a>& A,
     // should have moved? need to check cppreference
     return p_res;
 }
-
+/*
+ * this function is matrix multiplication between row-major matrices
+ * parallel version
+ */
 template <typename TypeNumber, int32_t row_a, int32_t col_a, int32_t col_b>
 auto matmul_par(const mat<TypeNumber, row_a, col_a>& A,
                 const mat<TypeNumber, col_a, col_b>& B, int32_t thread_count)
@@ -150,6 +170,13 @@ auto matmul_par(const mat<TypeNumber, row_a, col_a>& A,
     return p_res;
 }
 
+/*
+ * this function is matrix multiplication between one row-major matrix and
+ * one column-major matrix
+ * the latter using data locality during matrix multiplication
+ * and should be more cache-friendly and faster theoretically
+ * parallel version
+ */
 template <typename TypeNumber, int32_t row_a, int32_t col_a, int32_t col_b>
 auto matmul_par(const mat<TypeNumber, row_a, col_a>& A,
                 const mat_alt<TypeNumber, col_a, col_b>& B,

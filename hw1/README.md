@@ -72,7 +72,7 @@ To see the results of benchmarks: (make sure you are in ```build``` directory)
 + hw1p1_benchmark
 
 ```
-2020-10-09T00:38:22+08:00
+020-10-09T22:59:12+08:00
 Running ./hw1p1_benchmark
 Run on (8 X 3900 MHz CPU s)
 CPU Caches:
@@ -80,52 +80,44 @@ CPU Caches:
   L1 Instruction 32 KiB (x4)
   L2 Unified 256 KiB (x4)
   L3 Unified 6144 KiB (x1)
-Load Average: 0.79, 2.87, 4.36
-------------------------------------------------------------------------------
-Benchmark                                    Time             CPU   Iterations
-------------------------------------------------------------------------------
-benchmark_generic_sum                  6949210 ns      6949162 ns          113
-benchmark_generic_sum_omp/1          142407562 ns    142407063 ns            5
-benchmark_generic_sum_omp/2          269709750 ns    269550336 ns            3
-benchmark_generic_sum_omp/3          421977042 ns    421975665 ns            2
-benchmark_generic_sum_omp/4          526719105 ns    460071960 ns            2
-benchmark_generic_sum_omp/5          593159908 ns    573806184 ns            1
-benchmark_generic_sum_omp/6          612195650 ns    479572759 ns            2
-benchmark_generic_sum_omp/7          694122609 ns    599149453 ns            1
-benchmark_generic_sum_omp/8          772283708 ns    622085024 ns            1
-benchmark_generic_sum                  7301945 ns      7301877 ns          111
-benchmark_generic_sum_omp_lock/1     158243118 ns    158221035 ns            5
-benchmark_generic_sum_omp_lock/2     392907801 ns    392906206 ns            2
-benchmark_generic_sum_omp_lock/3     539858913 ns    533585783 ns            1
-benchmark_generic_sum_omp_lock/4     916058794 ns    915754188 ns            1
-benchmark_generic_sum_omp_lock/5     893991603 ns    893940081 ns            1
-benchmark_generic_sum_omp_lock/6     994158309 ns    970886172 ns            1
-benchmark_generic_sum_omp_lock/7    1073070201 ns    933486731 ns            1
-benchmark_generic_sum_omp_lock/8    1146788576 ns   1129554723 ns            1
-benchmark_generic_sum                  7323569 ns      7321185 ns          100
-benchmark_generic_sum_omp_red/1        5033907 ns      5032728 ns          100
-benchmark_generic_sum_omp_red/2        3339826 ns      3337632 ns          270
-benchmark_generic_sum_omp_red/3        2519376 ns      2517624 ns          314
-benchmark_generic_sum_omp_red/4        1991852 ns      1990572 ns          394
-benchmark_generic_sum_omp_red/5        1968084 ns      1966539 ns          315
-benchmark_generic_sum_omp_red/6        1992904 ns      1924621 ns          280
-benchmark_generic_sum_omp_red/7        1854291 ns      1806090 ns          519
-benchmark_generic_sum_omp_red/8        1631152 ns      1542267 ns          363
-benchmark_generic_sum                  7511361 ns      7511109 ns           90
-benchmark_generic_sum_omp_red_neq/1   10221398 ns     10219527 ns           71
-benchmark_generic_sum_omp_red_neq/2    5362525 ns      5362470 ns          140
-benchmark_generic_sum_omp_red_neq/3    5846137 ns      5846099 ns          197
-benchmark_generic_sum_omp_red_neq/4    4678313 ns      4678290 ns          205
-benchmark_generic_sum_omp_red_neq/5    3682724 ns      3682304 ns          183
-benchmark_generic_sum_omp_red_neq/6    2444267 ns      2444238 ns          289
-benchmark_generic_sum_omp_red_neq/7    4586148 ns      4250226 ns          366
-benchmark_generic_sum_omp_red_neq/8    2098312 ns      2026365 ns          365
+Load Average: 1.57, 1.41, 1.04
+---------------------------------------------------------------------------
+Benchmark                                 Time             CPU   Iterations
+---------------------------------------------------------------------------
+benchmark_generic_sum               6069566 ns      6069529 ns          118
+benchmark_generic_sum_omp/1       151786012 ns    151734272 ns            5
+benchmark_generic_sum_omp/2       264594331 ns    264590370 ns            3
+benchmark_generic_sum_omp/3       437720614 ns    437386862 ns            2
+benchmark_generic_sum_omp/4       565434925 ns    565278766 ns            1
+benchmark_generic_sum_omp/5       572355642 ns    572231647 ns            1
+benchmark_generic_sum_omp/6       655638027 ns    655147371 ns            1
+benchmark_generic_sum_omp/7       711132320 ns    711124631 ns            1
+benchmark_generic_sum_omp/8       700406198 ns    700344057 ns            1
+benchmark_generic_sum               8407318 ns      8407100 ns          120
+benchmark_generic_sum_omp_lock/1  152801489 ns    152800635 ns            4
+benchmark_generic_sum_omp_lock/2  587645023 ns    587644701 ns            1
+benchmark_generic_sum_omp_lock/3  855132956 ns    854095879 ns            1
+benchmark_generic_sum_omp_lock/4 1146710500 ns   1127109708 ns            1
+benchmark_generic_sum_omp_lock/5 1059183796 ns    721830126 ns            1
+benchmark_generic_sum_omp_lock/6 1261012615 ns    998023706 ns            1
+benchmark_generic_sum_omp_lock/7 1282394625 ns    975059470 ns            1
+benchmark_generic_sum_omp_lock/8 1371125777 ns    959406516 ns            1
+benchmark_generic_sum               5998312 ns      5998279 ns          118
+benchmark_generic_sum_omp_red/1     4275284 ns      4275260 ns          166
+benchmark_generic_sum_omp_red/2     2202765 ns      2202751 ns          315
+benchmark_generic_sum_omp_red/3     2264638 ns      2263392 ns          327
+benchmark_generic_sum_omp_red/4     1702365 ns      1702350 ns          386
+benchmark_generic_sum_omp_red/5     1510967 ns      1510967 ns          448
+benchmark_generic_sum_omp_red/6     1418715 ns      1418538 ns          445
+benchmark_generic_sum_omp_red/7     1346728 ns      1346651 ns          534
+benchmark_generic_sum_omp_red/8     1369365 ns      1369356 ns          527
+benchmark_generic_sum               5887914 ns      5887084 ns          122
 ```
 
 + hw1p2_benchmark
 
 ```
-2020-10-08T22:58:23+08:00
+2020-10-09T23:00:21+08:00
 Running ./hw1p2_benchmark
 Run on (8 X 3900 MHz CPU s)
 CPU Caches:
@@ -133,26 +125,26 @@ CPU Caches:
   L1 Instruction 32 KiB (x4)
   L2 Unified 256 KiB (x4)
   L3 Unified 6144 KiB (x1)
-Load Average: 1.92, 1.79, 1.85
+Load Average: 1.91, 1.61, 1.14
 ---------------------------------------------------------------------
 Benchmark                           Time             CPU   Iterations
 ---------------------------------------------------------------------
-benchmark_matmul             64290877 ns     64284564 ns           10
-benchmark_matmul_par/1       66718295 ns     66704186 ns           12
-benchmark_matmul_par/2       33495025 ns     33491064 ns           20
-benchmark_matmul_par/3       22071813 ns     22069439 ns           29
-benchmark_matmul_par/4       18306723 ns     18303620 ns           42
-benchmark_matmul_par/5       16658261 ns     16558858 ns           46
-benchmark_matmul_par/6       15396404 ns     15089624 ns           52
-benchmark_matmul_par/7       12778783 ns     12296192 ns           45
-benchmark_matmul_par/8       12528255 ns     12017053 ns           44
-benchmark_matmul_alt         63331130 ns     63320719 ns           10
-benchmark_matmul_par_alt/1   65062229 ns     65052553 ns           11
-benchmark_matmul_par_alt/2   33009669 ns     33006697 ns           22
-benchmark_matmul_par_alt/3   22671961 ns     22666807 ns           34
-benchmark_matmul_par_alt/4   17288567 ns     17284405 ns           43
-benchmark_matmul_par_alt/5   14811066 ns     14800129 ns           50
-benchmark_matmul_par_alt/6   12694588 ns     12549452 ns           57
-benchmark_matmul_par_alt/7   11613924 ns     11174800 ns           46
-benchmark_matmul_par_alt/8   11022873 ns     10344988 ns           70
+benchmark_matmul             61474194 ns     61466916 ns           11
+benchmark_matmul_par/1       60704807 ns     60704618 ns           11
+benchmark_matmul_par/2       35812748 ns     35811639 ns           22
+benchmark_matmul_par/3       26152387 ns     26152156 ns           23
+benchmark_matmul_par/4       22425261 ns     22293886 ns           33
+benchmark_matmul_par/5       17688918 ns     17681518 ns           38
+benchmark_matmul_par/6       12792128 ns     12792143 ns           48
+benchmark_matmul_par/7       11508200 ns     11508119 ns           59
+benchmark_matmul_par/8       10764284 ns     10703919 ns           62
+benchmark_matmul_alt         63734428 ns     63734019 ns           11
+benchmark_matmul_par_alt/1   59747172 ns     59746714 ns           11
+benchmark_matmul_par_alt/2   30933082 ns     30932980 ns           23
+benchmark_matmul_par_alt/3   20594883 ns     20594899 ns           34
+benchmark_matmul_par_alt/4   15781729 ns     15781730 ns           44
+benchmark_matmul_par_alt/5   13879264 ns     13879109 ns           51
+benchmark_matmul_par_alt/6   11827001 ns     11826934 ns           59
+benchmark_matmul_par_alt/7   10270290 ns     10270217 ns           63
+benchmark_matmul_par_alt/8    9429956 ns      9429854 ns           72
 ```
