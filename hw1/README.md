@@ -2,11 +2,11 @@
 
 ## build instruction
 
-Default build type is ```RelWithDebInfo```.
+Default build type is ```RelWithDebInfo```. For optimized result, you should use ```Release```.
 To build:
 ```bash
 mkdir build && cd build
-cmake -G Ninja ..
+cmake -G Ninja .. -DCMAKE_BUILD_TYPE=$YOUR_BUILD_TYPE
 ninja
 ```
 

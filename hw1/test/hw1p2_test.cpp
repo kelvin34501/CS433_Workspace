@@ -33,7 +33,7 @@ TEST(HW1P2, SERIAL_ALT) {
     auto B = mat<float, 4, 5>(arr_B);
     auto B_alt = mat_alt(B);
     auto C = mat<float, 3, 5>(arr_C);
-    auto p_C_ = matmul(A, B);
+    auto p_C_ = matmul(A, B_alt);
 
     EXPECT_EQ(*p_C_, C);
 }

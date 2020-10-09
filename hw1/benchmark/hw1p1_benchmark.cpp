@@ -100,6 +100,7 @@ static auto benchmark_generic_sum_omp_red(benchmark::State& state) -> void {
     KEEP_UNUSED(keep_unused);
 }
 
+/*
 static auto benchmark_generic_sum_omp_red_neq(benchmark::State& state) -> void {
     // setup things
     std::random_device rnd_dev;
@@ -122,6 +123,7 @@ static auto benchmark_generic_sum_omp_red_neq(benchmark::State& state) -> void {
     keep_unused = display;
     KEEP_UNUSED(keep_unused);
 }
+*/
 
 // register function as benchmark
 BENCHMARK(benchmark_generic_sum);
@@ -155,6 +157,7 @@ BENCHMARK(benchmark_generic_sum_omp_red)
     ->Arg(7)
     ->Arg(8);
 BENCHMARK(benchmark_generic_sum);
+/*
 BENCHMARK(benchmark_generic_sum_omp_red_neq)
     ->Arg(1)
     ->Arg(2)
@@ -164,6 +167,7 @@ BENCHMARK(benchmark_generic_sum_omp_red_neq)
     ->Arg(6)
     ->Arg(7)
     ->Arg(8);
+*/
 
 // run the benchmark
 BENCHMARK_MAIN();

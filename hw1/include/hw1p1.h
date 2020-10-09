@@ -20,11 +20,11 @@ auto sum_iter_par(Iter begin, Iter end, int32_t thread_count)
     typename std::iterator_traits<Iter>::value_type res{};
     typename std::iterator_traits<Iter>::difference_type diff = end - begin;
 
-    // clang-format off
+// clang-format off
     #pragma omp parallel for num_threads(thread_count) shared(diff, begin, res) default(none)
     // clang-format on
     for (auto it = 0; it < diff; ++it) {
-        // clang-format off
+// clang-format off
         #pragma omp critical
         // clang-format on
         res = res + *(begin + it);
@@ -43,7 +43,7 @@ auto sum_iter_par_lock(Iter begin, Iter end, int32_t thread_count)
 
     omp_init_lock(&writelock);
 
-    // clang-format off
+// clang-format off
     #pragma omp parallel for num_threads(thread_count) shared(diff, begin, res, writelock) default(none)
     // clang-format on
     for (auto it = 0; it < diff; ++it) {
@@ -61,7 +61,7 @@ auto sum_iter_par_red(Iter begin, Iter end, int32_t thread_count)
     typename std::iterator_traits<Iter>::value_type res{};
     typename std::iterator_traits<Iter>::difference_type diff = end - begin;
 
-    // clang-format off
+// clang-format off
     #pragma omp parallel for num_threads(thread_count) reduction(+ : res) shared(diff, begin) default(none)
     // clang-format on
     for (auto it = 0; it < diff; ++it) {
@@ -70,14 +70,15 @@ auto sum_iter_par_red(Iter begin, Iter end, int32_t thread_count)
 
     return res;
 }
-
+/*
 template <typename Iter>
 auto sum_iter_par_red_neq(Iter begin, Iter end, int32_t thread_count)
     -> decltype(auto) {
     typename std::iterator_traits<Iter>::value_type res{};
 
     // clang-format off
-    #pragma omp parallel for num_threads(thread_count) reduction(+ : res) shared(begin, end) default(none)
+    #pragma omp parallel for num_threads(thread_count) reduction(+ : res)
+shared(begin, end) default(none)
     // clang-format on
     for (auto it = begin; it != end; ++it) {
         res = res + *it;
@@ -85,5 +86,5 @@ auto sum_iter_par_red_neq(Iter begin, Iter end, int32_t thread_count)
 
     return res;
 }
-
+*/
 #endif
