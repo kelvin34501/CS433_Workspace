@@ -4,6 +4,26 @@ project(hw1 VERSION 0.1.0)
 # set build type to RelWithDebInfo
 set(CMAKE_BUILD_TYPE RelWithDebInfo)
 message(STATUS "Cmake Build Type: ${CMAKE_BUILD_TYPE}")
+# this is a fix for msvc
+if(MSVC)
+    message(STATUS "Apply fix on MSVC (workaround)")
+    set(CompilerFlags
+            CMAKE_CXX_FLAGS
+            CMAKE_CXX_FLAGS_DEBUG
+            CMAKE_CXX_FLAGS_RELEASE
+            CMAKE_CXX_FLAGS_RELWITHDEBINFO
+            CMAKE_CXX_FLAGS_MINSIZEREL
+            CMAKE_C_FLAGS
+            CMAKE_C_FLAGS_DEBUG
+            CMAKE_C_FLAGS_RELEASE
+            CMAKE_C_FLAGS_RELWITHDEBINFO
+            CMAKE_C_FLAGS_MINSIZEREL
+            )
+    foreach(CompilerFlag ${CompilerFlags})
+        string(REPLACE "/MD" "/MT" ${CompilerFlag} "${${CompilerFlag}}")
+        message(STATUS "\tReplaced Flags: ${CompilerFlag}: ${${CompilerFlag}}")
+    endforeach()
+endif()
 
 # set a few vars
 set(WS_DIR_REL ${CMAKE_CURRENT_SOURCE_DIR}/..)
