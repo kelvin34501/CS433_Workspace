@@ -2,6 +2,8 @@
 #include <cuda_runtime.h>
 #include <iostream>
 
+// vanilla version
+// directly transform cpu convolution to gpu one
 __global__ void cuda_conv_gpu(float* res, float* inp, float* kernel, int N,
                               int C, int H, int W, int F, int KX, int KY) {
     // there will be no optimization!
@@ -9,10 +11,10 @@ __global__ void cuda_conv_gpu(float* res, float* inp, float* kernel, int N,
     int W_ = W - KY + 1;
 
     // figure out which number need to compute
-    int n = blockIdx.x; // n
-    int f = blockIdx.y; // f
-    int h_beg = threadIdx.x;
-    int w_beg = threadIdx.y;
+    int n = blockIdx.x;      // n
+    int f = blockIdx.y;      // f
+    int h_beg = threadIdx.x; // init offset for h
+    int w_beg = threadIdx.y; // init offset for w
 
     // we need to iterate over h and w
     for (int h = h_beg; h < H_; h += blockDim.x) {
@@ -26,7 +28,8 @@ __global__ void cuda_conv_gpu(float* res, float* inp, float* kernel, int N,
             //      inp[n, c, h+i, w+j]
             //      ker[f, c, i, j]
             float curr = 0;
-            // order of summation should not affect result? check this
+            // order of summation should not affect result? check this =>
+            // noeffect
             for (int c = 0; c < C; c++) { // c++
                 for (int i = 0; i < KX; i++) {
                     for (int j = 0; j < KY; j++) {
@@ -154,6 +157,9 @@ __global__ void matmul_naive(float* res, float* inp_derive,
     }
 }
 
+// clear the allocated memory
+// documentation says cudaMalloc will not do this for you (sad)
+// in parallel manner
 __global__ void clear(float* res, int N, int padding_width, int padding_H_W_) {
     int n = blockIdx.x;
     int a_beg = threadIdx.x;
@@ -173,6 +179,7 @@ __global__ void clear(float* res, int N, int padding_width, int padding_H_W_) {
 // implementation
 // inp[N, C, H, W] => [N, C, KX*KY, H_*W_] => inp'[N, C * KX * KY, H_ * W_]
 // no work need to be done at last step
+// with padding we can tile without worry!
 __global__ void input_im2col_flatten_transpose_padding(float* res, float* inp,
                                                        int N, int C, int H,
                                                        int W, int KX, int KY,
@@ -201,6 +208,14 @@ __global__ void input_im2col_flatten_transpose_padding(float* res, float* inp,
     }
 }
 
+// kernel
+// there should be one function to pad the kernel
+// it is absent because i'm running out of time...
+// there is only one hour from due time
+// and luckily F is 128 and C is 64 here
+// so tile size in [2, 4, 8, 16, 32] should apply
+// todo: pad the kernel
+
 // matmul
 // kern'[F, C * KX * KY] @ inp'[N, C * KX * KY, H_ * W_] // lets ignore N
 // res'[N, F, H_ * W_]
@@ -216,6 +231,10 @@ __global__ void matmul_tile(float* res, float* inp_derive, float* kernel_derive,
     int bx = blockIdx.x;
     int by = blockIdx.y;
     int n = blockIdx.z;
+    // this is weird. if iterate over n, the content in shared memory will be
+    // wrong, even i explictly synchronize.
+    // spent a whole day on this
+    // check this later
     int tx = threadIdx.x;
     int ty = threadIdx.y;
     // figure out position
@@ -240,6 +259,7 @@ __global__ void matmul_tile(float* res, float* inp_derive, float* kernel_derive,
         __syncthreads();
 
         // sum within the block
+// unroll doesn't seem to be helpful. why?
 #pragma unroll
         for (int k = 0; k < TILE_SIZE; k++) {
             p_value += kern_block_shared[tx][k] * inp_block_shared[ty][k];
@@ -347,3 +367,5 @@ void conv_gpu_3(float* res, float* inp, float* kernel, int N, int C, int H,
     cudaFree(cuda_inp_derive);
     cudaFree(cuda_kernel);
 }
+
+// end.
