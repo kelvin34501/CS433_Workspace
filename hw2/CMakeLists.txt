@@ -75,6 +75,21 @@ target_link_libraries(hw1p1_test PUBLIC
     conv_gpu
 )
 
+add_executable(hw1p2_test test/hw1p2.cpp)
+target_compile_features(hw1p2_test PUBLIC cxx_std_17)
+target_compile_options(hw1p2_test PUBLIC
+  $<$<CXX_COMPILER_ID:MSVC>:/W4>
+  $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:-Wall -Wextra -pedantic>
+)
+target_include_directories(hw1p2_test PUBLIC
+    ${CMAKE_CURRENT_SOURCE_DIR}/include 
+)
+target_link_libraries(hw1p2_test PUBLIC 
+    gtest_main
+    conv_cpu
+    conv_gpu
+)
+
 # benchmarking things
 add_executable(hw1p1_benchmark benchmark/hw1p1.cpp)
 target_compile_features(hw1p1_benchmark PUBLIC cxx_std_17)
