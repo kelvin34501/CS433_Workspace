@@ -105,3 +105,18 @@ target_link_libraries(hw1p1_benchmark PUBLIC
     conv_cpu
     conv_gpu
 )
+
+add_executable(hw1p2_benchmark benchmark/hw1p2.cpp)
+target_compile_features(hw1p2_benchmark PUBLIC cxx_std_17)
+target_compile_options(hw1p2_benchmark PUBLIC
+  $<$<CXX_COMPILER_ID:MSVC>:/W4>
+  $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:-Wall -Wextra -pedantic>
+)
+target_include_directories(hw1p2_benchmark PUBLIC 
+    ${CMAKE_CURRENT_SOURCE_DIR}/include 
+)
+target_link_libraries(hw1p2_benchmark PUBLIC 
+    benchmark::benchmark
+    conv_cpu
+    conv_gpu
+)
