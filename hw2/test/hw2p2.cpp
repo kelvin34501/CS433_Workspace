@@ -44,10 +44,14 @@ TEST(HW1P2, RUN_2) {
 
     // compute max error
     float max_error = 0.0f;
+    int acc = 0;
     for (int i = 0; i < 8 * 128 * 126 * 126; i++) {
         if (fabs(gpu_res[i] - gpu_res_1[i]) > max_tol) {
             std::cout << i << ' ' << gpu_res[i] << ' ' << gpu_res_1[i] << '\n';
-            exit(0);
+            acc++;
+            if (acc > 20) {
+                exit(0);
+            }
         }
         max_error = fmax(max_error, fabs(gpu_res[i] - gpu_res_1[i]));
     }

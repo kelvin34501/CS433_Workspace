@@ -11,9 +11,9 @@ extern void conv_gpu_2(float* res, float* inp, float* kernel, int N, int C,
                        int H, int W, int F, int KX, int KY);
 extern void conv_gpu_3(float* res, float* inp, float* kernel, int N, int C,
                        int H, int W, int F, int KX, int KY);
-constexpr int BLOCK_SIZE_X = 4;
-constexpr int BLOCK_SIZE_Y = 4;
-constexpr int TILE_SIZE = 4;
+constexpr int BLOCK_SIZE_X = 32;
+constexpr int BLOCK_SIZE_Y = 32;
+constexpr int TILE_SIZE = 32;
 
 #ifdef __cplusplus
 }
