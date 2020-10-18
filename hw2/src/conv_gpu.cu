@@ -194,6 +194,7 @@ __global__ void matmul_tile(float* res, float* inp_derive, float* kernel_derive,
             __syncthreads();
 
             // sum within the block
+#pragma unroll
             for (int k = 0; k < TILE_SIZE && m * TILE_SIZE + k < width; k++) {
                 p_value += kern_block_shared[tx][k] * inp_block_shared[ty][k];
             }
